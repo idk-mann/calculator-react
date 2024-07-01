@@ -212,66 +212,33 @@ function App() {
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td colSpan="3">
-                                <button id="clear" className="btn btn-danger w-100" onClick={() => handleButtonClick('C')}>C</button>
-                            </td>
-                            <td>
-                                <button id="divide" className="btn btn-secondary w-100" onClick={() => handleButtonClick('/')}>÷</button>
-                            </td>
+                       <tr>
+                            <td><button id="seven" className="btn btn-light w-100" onClick={() => handleButtonClick('7')}>7</button></td>
+                            <td><button id="eight" className="btn btn-light w-100" onClick={() => handleButtonClick('8')}>8</button></td>
+                            <td><button id="nine" className="btn btn-light w-100" onClick={() => handleButtonClick('9')}>9</button></td>
+                            <td><button id="multiply" className="btn btn-secondary w-100" onClick={() => handleButtonClick('*')}>×</button></td>
                         </tr>
                         <tr>
-                            <td>
-                                <button id="seven" className="btn btn-light w-100" onClick={() => handleButtonClick('7')}>7</button>
-                            </td>
-                            <td>
-                                <button id="eight" className="btn btn-light w-100" onClick={() => handleButtonClick('8')}>8</button>
-                            </td>
-                            <td>
-                                <button id="nine" className="btn btn-light w-100" onClick={() => handleButtonClick('9')}>9</button>
-                            </td>
-                            <td>
-                                <button id="multiply" className="btn btn-secondary w-100" onClick={() => handleButtonClick('*')}>×</button>
-                            </td>
+                            <td><button id="four" className="btn btn-light w-100" onClick={() => handleButtonClick('4')}>4</button></td>
+                            <td><button id="five" className="btn btn-light w-100" onClick={() => handleButtonClick('5')}>5</button></td>
+                            <td><button id="six" className="btn btn-light w-100" onClick={() => handleButtonClick('6')}>6</button></td>
+                            <td><button id="subtract" className="btn btn-secondary w-100" onClick={() => handleButtonClick('-')}>-</button></td>
                         </tr>
                         <tr>
-                            <td>
-                                <button id="four" className="btn btn-light w-100" onClick={() => handleButtonClick('4')}>4</button>
-                            </td>
-                            <td>
-                                <button id="five" className="btn btn-light w-100" onClick={() => handleButtonClick('5')}>5</button>
-                            </td>
-                            <td>
-                                <button id="six" className="btn btn-light w-100" onClick={() => handleButtonClick('6')}>6</button>
-                            </td>
-                            <td>
-                                <button id="subtract" className="btn btn-secondary w-100" onClick={() => handleButtonClick('-')}>-</button>
-                            </td>
+                            <td><button id="one" className="btn btn-light w-100" onClick={() => handleButtonClick('1')}>1</button></td>
+                            <td><button id="two" className="btn btn-light w-100" onClick={() => handleButtonClick('2')}>2</button></td>
+                            <td><button id="three" className="btn btn-light w-100" onClick={() => handleButtonClick('3')}>3</button></td>
+                            <td><button id="add" className="btn btn-secondary w-100" onClick={() => handleButtonClick('+')}>+</button></td>
                         </tr>
                         <tr>
-                            <td>
-                                <button id="one" className="btn btn-light w-100" onClick={() => handleButtonClick('1')}>1</button>
-                            </td>
-                            <td>
-                                <button id="two" className="btn btn-light w-100" onClick={() => handleButtonClick('2')}>2</button>
-                            </td>
-                            <td>
-                                <button id="three" className="btn btn-light w-100" onClick={() => handleButtonClick('3')}>3</button>
-                            </td>
-                            <td>
-                                <button id="add" className="btn btn-secondary w-100" onClick={() => handleButtonClick('+')}>+</button>
-                            </td>
+                            <td><button id="left-bracket" className="btn btn-light w-100" onClick={() => handleButtonClick('(')}>(</button></td>
+                            <td><button id="right-bracket" className="btn btn-light w-100" onClick={() => handleButtonClick(')')}>)</button></td>
+                            <td><button id="decimal" className="btn btn-light w-100" onClick={() => handleButtonClick('.')}>.</button></td>
+                            <td><button id="equals" className="btn btn-primary w-100" onClick={() => handleButtonClick('=')}>=</button></td>
                         </tr>
                         <tr>
-                            <td colSpan="2">
-                                <button id="zero" className="btn btn-light w-100" onClick={() => handleButtonClick('0')}>0</button>
-                            </td>
-                            <td>
-                                <button id="decimal" className="btn btn-light w-100" onClick={() => handleButtonClick('.')}>.</button>
-                            </td>
-                            <td>
-                                <button id="equals" className="btn btn-primary w-100" onClick={() => handleButtonClick('=')}>=</button>
-                            </td>
+                            <td colSpan="3"><button id="zero" className="btn btn-light w-100" onClick={() => handleButtonClick('0')}>0</button></td>
+                            <td><button id="backspace" className="btn btn-warning w-100" onClick={() => handleButtonClick('Backspace')}>⌫</button></td>
                         </tr>
                     </tbody>
                 </table>
