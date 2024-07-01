@@ -1,0 +1,170 @@
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+#calculator {
+  max-width: 320px;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+}
+
+.btn {
+
+  font-size: 1.5em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+button:active {
+  background-color: #bbb;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+#display {
+  font-size: 2rem;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  background-color: #cfd9f4;
+  border-radius: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.light-mode .btn-light {
+  background-color: #f8f9fa;
+  color: #000000;
+}
+
+body.light-mode .btn-secondary {
+  background-color: #6c757d;
+  color: #ffffff;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #272727;
+  color: #ffffff;
+}
+
+body.dark-mode .btn-light {
+  background-color: #555555;
+  color: #ffffff;
+}
+
+body.dark-mode .btn-secondary {
+  background-color: #888888;
+  color: #ffffff;
+}
+
+body.dark-mode #display {
+  background-color: #144771;
+  color: #ffffff;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-right: 20px;
+}
+
+.switch input { 
+  opacity: 1;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #8f8f8f;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #272727;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #144771;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #272727;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.label-text {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.horizontal-center {
+  display: flex;
+  align-items: center;
+}
+
+.display {
+  font-size: 2em;
+  letter-spacing: 0; /* Adjust the spacing value as needed */
+  text-align: right;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+  color: #333;
+  
+}
