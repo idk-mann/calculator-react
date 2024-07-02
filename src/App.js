@@ -13,6 +13,13 @@ const evaluateExpression = (expr) => {
             output.push(token);
         } else if (token === '(') {
             stack.push(token);
+            // Handle implicit multiplication
+            if (index > 0 && /\d|\)/.test(tokens[index - 1])) {
+                while (stack.length && ops[peek(stack)] >= ops['*']) {
+                    output.push(stack.pop());
+                }
+                stack.push('*');
+            }
         } else if (token === ')') {
             while (stack.length && peek(stack) !== '(') {
                 output.push(stack.pop());
@@ -54,6 +61,7 @@ const evaluateExpression = (expr) => {
 
     return resultStack[0];
 };
+
 
 const formatInput = (input) => {
     // Remove all existing spaces
@@ -109,76 +117,87 @@ function App() {
     const handleButtonClick = (value) => {
         console.log(`Button clicked: ${value}`);
         console.log(`Current input: ${rawInput}`);
-
+    
         if (value === 'C') {
             setRawInput('');
             setDisplayInput('');
             return;
         }
-
+    
         if (value === '=') {
             calculate();
             return;
         }
-
+    
         if (value === 'Backspace') {
             setRawInput((prevInput) => prevInput.slice(0, -1));
             setDisplayInput((prevInput) => formatInput(prevInput.slice(0, -1)));
             return;
         }
-
+    
         setRawInput((prevInput) => {
             // Prevent multiple leading zeros
             if (prevInput === '' && value === '0') {
                 return '0';
             }
-
+    
             // Prevent multiple decimal points in the same number
             const lastNumber = prevInput.split(/[\+\-\*\/]/).pop();
             if (value === '.' && lastNumber.includes('.')) {
                 return prevInput;
             }
-
+    
             // Handle cases where a new number segment starts with '0'
             if (lastNumber === '0' && !['+', '-', '*', '/'].includes(value) && value !== '.') {
                 return prevInput.slice(0, -1) + value;
             }
-
+    
             // Prevent entering more than one operator at a time
             const lastChar = prevInput[prevInput.length - 1];
+            const secondLastChar = prevInput[prevInput.length - 2];
             if (['+', '-', '*', '/'].includes(lastChar) && ['+', '-', '*', '/'].includes(value)) {
                 return prevInput;
             }
-
+            if (lastChar === ' ' && ['+', '-', '*', '/'].includes(secondLastChar) && ['+', '-', '*', '/'].includes(value)) {
+                return prevInput;
+            }
+    
             return prevInput + value;
         });
-
+    
         setDisplayInput((prevInput) => {
             // Prevent multiple leading zeros
             if (prevInput === '' && value === '0') {
                 return '0';
             }
-
+    
             // Prevent multiple decimal points in the same number
             const lastNumber = prevInput.split(/[\+\-\×\/]/).pop();
             if (value === '.' && lastNumber.includes('.')) {
                 return prevInput;
             }
-
+    
             // Handle cases where a new number segment starts with '0'
             if (lastNumber === '0' && !['+', '-', '×', '/'].includes(value) && value !== '.') {
                 return prevInput.slice(0, -1) + value;
             }
-
+    
             // Prevent entering more than one operator at a time
             const lastChar = prevInput[prevInput.length - 1];
+            const secondLastChar = prevInput[prevInput.length - 2];
             if (['+', '-', '×', '/'].includes(lastChar) && ['+', '-', '×', '/'].includes(value)) {
                 return prevInput;
             }
-
+            if (lastChar === ' ' && ['+', '-', '×', '/'].includes(secondLastChar) && ['+', '-', '×', '/'].includes(value)) {
+                return prevInput;
+            }
+    
+            
             return formatInput(prevInput + value.replace('*', '×'));
         });
     };
+    
+    
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -205,41 +224,45 @@ function App() {
         <div className="container">    
             <table className="table table-bordered">
                     <tbody>
-                        <tr>
-                            <td colSpan="4">
-                                <div id="display" className="display w-100">
-                                    {displayInput}
-                                </div>
-                            </td>
-                        </tr>
-                       <tr>
-                            <td><button id="seven" className="btn btn-light w-100" onClick={() => handleButtonClick('7')}>7</button></td>
-                            <td><button id="eight" className="btn btn-light w-100" onClick={() => handleButtonClick('8')}>8</button></td>
-                            <td><button id="nine" className="btn btn-light w-100" onClick={() => handleButtonClick('9')}>9</button></td>
-                            <td><button id="multiply" className="btn btn-secondary w-100" onClick={() => handleButtonClick('*')}>×</button></td>
-                        </tr>
-                        <tr>
-                            <td><button id="four" className="btn btn-light w-100" onClick={() => handleButtonClick('4')}>4</button></td>
-                            <td><button id="five" className="btn btn-light w-100" onClick={() => handleButtonClick('5')}>5</button></td>
-                            <td><button id="six" className="btn btn-light w-100" onClick={() => handleButtonClick('6')}>6</button></td>
-                            <td><button id="subtract" className="btn btn-secondary w-100" onClick={() => handleButtonClick('-')}>-</button></td>
-                        </tr>
-                        <tr>
-                            <td><button id="one" className="btn btn-light w-100" onClick={() => handleButtonClick('1')}>1</button></td>
-                            <td><button id="two" className="btn btn-light w-100" onClick={() => handleButtonClick('2')}>2</button></td>
-                            <td><button id="three" className="btn btn-light w-100" onClick={() => handleButtonClick('3')}>3</button></td>
-                            <td><button id="add" className="btn btn-secondary w-100" onClick={() => handleButtonClick('+')}>+</button></td>
-                        </tr>
-                        <tr>
-                            <td><button id="left-bracket" className="btn btn-light w-100" onClick={() => handleButtonClick('(')}>(</button></td>
-                            <td><button id="right-bracket" className="btn btn-light w-100" onClick={() => handleButtonClick(')')}>)</button></td>
-                            <td><button id="decimal" className="btn btn-light w-100" onClick={() => handleButtonClick('.')}>.</button></td>
-                            <td><button id="equals" className="btn btn-primary w-100" onClick={() => handleButtonClick('=')}>=</button></td>
-                        </tr>
-                        <tr>
-                            <td colSpan="3"><button id="zero" className="btn btn-light w-100" onClick={() => handleButtonClick('0')}>0</button></td>
-                            <td><button id="backspace" className="btn btn-warning w-100" onClick={() => handleButtonClick('Backspace')}>⌫</button></td>
-                        </tr>
+                    <tr>
+                        <td colSpan="4">
+                            <div id="display" className="display w-100">
+                                {displayInput}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="3"><button id="clear" className="btn btn-danger w-100" onClick={() => handleButtonClick('C')}>AC</button></td>
+                        <td><button id="divide" className="btn btn-secondary w-100" onClick={() => handleButtonClick('/')}>÷</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="seven" className="btn btn-light w-100" onClick={() => handleButtonClick('7')}>7</button></td>
+                        <td><button id="eight" className="btn btn-light w-100" onClick={() => handleButtonClick('8')}>8</button></td>
+                        <td><button id="nine" className="btn btn-light w-100" onClick={() => handleButtonClick('9')}>9</button></td>
+                        <td><button id="multiply" className="btn btn-secondary w-100" onClick={() => handleButtonClick('*')}>×</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="four" className="btn btn-light w-100" onClick={() => handleButtonClick('4')}>4</button></td>
+                        <td><button id="five" className="btn btn-light w-100" onClick={() => handleButtonClick('5')}>5</button></td>
+                        <td><button id="six" className="btn btn-light w-100" onClick={() => handleButtonClick('6')}>6</button></td>
+                        <td><button id="subtract" className="btn btn-secondary w-100" onClick={() => handleButtonClick('-')}>-</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="one" className="btn btn-light w-100" onClick={() => handleButtonClick('1')}>1</button></td>
+                        <td><button id="two" className="btn btn-light w-100" onClick={() => handleButtonClick('2')}>2</button></td>
+                        <td><button id="three" className="btn btn-light w-100" onClick={() => handleButtonClick('3')}>3</button></td>
+                        <td><button id="add" className="btn btn-secondary w-100" onClick={() => handleButtonClick('+')}>+</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="left-bracket" className="btn btn-light w-100" onClick={() => handleButtonClick('(')}>(</button></td>
+                        <td><button id="right-bracket" className="btn btn-light w-100" onClick={() => handleButtonClick(')')}>)</button></td>
+                        <td><button id="decimal" className="btn btn-light w-100" onClick={() => handleButtonClick('.')}>.</button></td>
+                        <td><button id="equals" className="btn btn-primary w-100" onClick={() => handleButtonClick('=')}>=</button></td>
+                    </tr>
+                    <tr>
+                        <td colSpan="3"><button id="zero" className="btn btn-light w-100" onClick={() => handleButtonClick('0')}>0</button></td>
+                        <td><button id="backspace" className="btn btn-warning w-100" onClick={() => handleButtonClick('Backspace')}>⌫</button></td>
+                    </tr>
                     </tbody>
                 </table>
             
