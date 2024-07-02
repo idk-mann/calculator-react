@@ -102,8 +102,6 @@ function App() {
         document.body.className = isDarkMode ? 'dark-mode' : 'light-mode';
     }, [isDarkMode]);
 
-    
-
     const calculate = () => {
         try {
             const result = evaluateExpression(rawInput);
@@ -197,8 +195,6 @@ function App() {
         });
     };
     
-    
-
     useEffect(() => {
         const handleKeyDown = (event) => {
             const key = event.key;
